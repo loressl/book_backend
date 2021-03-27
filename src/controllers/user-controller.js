@@ -1,5 +1,8 @@
 const repository = require('../repositories/user-repository')
 const authService = require('../service/auth-service')
+const md5 = require('md5')
+require('dotenv').config()
+
 
 exports.post = async (req, res, next) => {
     try {
@@ -8,10 +11,12 @@ exports.post = async (req, res, next) => {
         var user = await repository.getByUsername(username)
         if (user !== null) {
             res.status(400).send({ mensagem: "Usuário já existe, verifique seus dados!!" })
+            return
         }
+
         var user = await repository.create({
             username: username,
-            password: password
+            password: md5(password + process.env.SECRET_KEY)
         })
         res.status(201).send({ user })
 
@@ -24,9 +29,12 @@ exports.post = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        var user = await repository.authenticate(req.body.username, req.body.password)
-        if (user === null) {
-            res.status(404).send({ mensagem: "Usuário não existe na base de dados. Verifique seu e-mail ou senha." })
+        var user = await repository.authenticate(req.body.username, md5(req.body.password + process.env.SECRET_KEY))
+        if (user ===null) {
+            res.status(404).send({
+                mensagem: "Usuário não existe. Verifique seus dados!!"
+            })
+            return
         }
         const token = await authService.generateToken({
             username: user.username,

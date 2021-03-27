@@ -14,6 +14,7 @@ exports.getPovCharacteresOfBook = async (req, res, next) => {
         }
         if (povCharacters.length === 0) {
             res.status(404).send({ mensagem: "Este livro não tem personagens principais." })
+            return
         }
         res.status(200).send(povCharacters)
     } catch (e) {
@@ -32,6 +33,7 @@ exports.getCoverOfBook = async (req, res, next) => {
         })
         if (!cover) {
             res.status(404).send({ mensagem: "Este livro não tem capa." })
+            return
         }
         res.status(200).send({ data: cover })
     } catch (error) {
@@ -46,6 +48,7 @@ exports.getAllBooks = async (req, res, next) => {
         var data = await repository.getAllBooks()
         if (data.length === 0) {
             res.status(404).send({ mensagem: "Não há livro na base de dados!" })
+            return
         }
         res.status(200).send({ data: data })
     } catch (error) {

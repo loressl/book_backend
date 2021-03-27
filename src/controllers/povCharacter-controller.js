@@ -7,6 +7,7 @@ exports.getPovCharacter = async(req, res, next)=>{
         var data = await repository.getPovCharacterByName(name)
         if(!data){
             res.status(404).send({mensagem:"Este personagem não encontra-se na base de dados."})
+            return
         }
         res.status(200).send({data: data})
     } catch (error) {
@@ -29,6 +30,7 @@ exports.getAllBooksOfPovCharacter = async(req, res, next) =>{
         }
         if(books.length === 0){
             res.status(404).send({mensagem: "Este personagem não tem relação com nenhum dos livros da base de dados."})
+            return
         }
         res.status(200).send({books})
     } catch (error) {
@@ -43,6 +45,7 @@ exports.getAllPovCharacters = async(req, res, next)=>{
         var data = await repository.getAllPovCharacters()
         if(!data){
             res.status(404).send({mensagem:"Não tem persongens na base de dados."})
+            return
         }
         res.status(200).send({data:data})
     } catch (error) {
