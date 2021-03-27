@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const book = require('../models/book')
 const Book = mongoose.model('Book')
 
 exports.create = async (data) => {

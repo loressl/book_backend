@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -41,10 +40,12 @@ requireDir('../src/models')
 const extenalData = require('./api-data')
 setTimeout(()=>{
     extenalData()
-},2500)
+},300)
 
 app.use('/', require('./routes/index-route'));
+app.use('/users', require('./routes/user-route'))
 app.use('/books', require('./routes/book-route'));
 app.use('/povCharacters', require('./routes/povCharacter-route'));
+
 
 module.exports = app;
