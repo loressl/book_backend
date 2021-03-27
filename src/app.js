@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+const requireDir = require('require-dir')
 require('dotenv').config()
 
 const app = express();
@@ -20,10 +21,10 @@ mongoose.connect(process.env.MONGODB,
         console.log(err);
 });
 
-app.use(bodyParser.json({
+app.use(express.json({
     limit: '5mb'
 }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // Habilita o CORS
@@ -35,6 +36,15 @@ app.use(function (req, res, next) {
     next();
 });
 
+requireDir('../src/models')
+
+const extenalData = require('./api-data')
+setTimeout(()=>{
+    extenalData()
+},2500)
+
 app.use('/', require('./routes/index-route'));
+app.use('/books', require('./routes/book-route'));
+app.use('/povCharacters', require('./routes/povCharacter-route'));
 
 module.exports = app;
