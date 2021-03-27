@@ -1,3 +1,7 @@
+<h1>Backend</h1>
+
+Api desenvolvida para consulta de livros, personagens principais e capas de livro, a partir da consulta de uma api externa.
+
 ## Features
 
 - [x] Obtenha a informação completa dos principais personagens (povCharacters) das Crônicas do Gelo e Fogo.
