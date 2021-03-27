@@ -7,12 +7,9 @@ exports.create = async (data) => {
 }
 
 exports.authenticate = async (username, password) => {
-    return await User.findOne({username: username}, function(err, user){
-        if(err) throw err
-        user.verifyPassword(password, function(err, isMatch){
-            if(err) throw err
-        })
-    })
+    return await User.findOne(
+        {username: username,
+        password : password})
 }
 
 exports.getByUsername = async (username) => {
