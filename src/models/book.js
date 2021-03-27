@@ -28,10 +28,10 @@ const schema = new Schema({
     released:{
         type: String, 
     },
-    characters:[{
-        type: String,
-        required: true
-    }]
+    povCharacters:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PovCharacter'
+    }],
 });
 
 module.exports = mongoose.model('Book', schema)

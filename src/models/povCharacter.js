@@ -13,7 +13,7 @@ const schema = new Schema({
         type: String,
     },
     born:{
-        type: Number,
+        type: String,
     },
     died:{
         type: String,
@@ -33,6 +33,10 @@ const schema = new Schema({
     spouse:{
         type: String, 
     },
+    books:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+    }],
     povBooks:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book'
