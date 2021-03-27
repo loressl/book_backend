@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "bcrypt-nodejs": "^0.0.3",
     "cors": "^2.8.5",
     "debug": "^2.6.9",
     "dotenv": "^8.2.0",
